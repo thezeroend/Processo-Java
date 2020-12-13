@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: API-GATEWAY
+    
+server:
+  port: 8080
+
+security:  oauth2:    resource:      service-id: API-AUTH
+      user-info-uri: http://oauth-server:9000/user-auth
+
+eureka:  client:
+    register-with-eureka: true
+    fetch-registry: true    service-url:      defaultZone: http://eureka-server:8761/eureka
+  instance:
+    prefer-ip-address: true
+    
+zuul:
+  sensitive-headers: Cookie,Set-Cookie  ignoredServices: '*'
+  prefix: /api
+  routes:
+    rest-service:
+      path: /rest/**
+      serviceId: REST-SERVICE
+    twitter-service:
+      path: /twitter/**
+      serviceId: TWITTER-REST-SERVICE
+    oauth:
+      path: /oauth/**
+      serviceId: API-AUTH
+  host:
+    socket-timeout-millis: 30000

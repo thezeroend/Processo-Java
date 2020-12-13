@@ -1,0 +1,37 @@
+server:
+  port: 9000
+
+eureka:
+  instance:
+    port: 8761
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-server:${eureka.instance.port}/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 3000
+
+security:
+    oauth2:
+      resource:
+        id: bcrypt
+
+spring:
+    application:
+      name: API-AUTH
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      platform: mysql
+      url: jdbc:mysql://database-server:3306/spring
+      username: root
+      password: root
+      hikari:
+        maximum-pool-size: 10
+    jpa:
+      database-platform: org.hibernate.dialect.MySQLDialect
+      generate-ddl: false
+      hibernate:
+        use-new-id-generator-mappings: false
+        ddl-auto: none
+      show-sql: true

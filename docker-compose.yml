@@ -1,0 +1,56 @@
+version: '3.3'
+services:
+    eureka-server:
+        image: matheuszero/eureka
+        container_name: eureka-server
+        ports:
+            - "8761:8761"
+
+    gateway-server:
+        image: matheuszero/gateway
+        container_name: gateway-server
+        ports:
+            - "8080:8080"
+        depends_on:
+            - "eureka-server"
+        links:
+            - "eureka-server:eureka-server"
+
+    oauth-server:
+        image: matheuszero/oauth
+        container_name: oauth-server
+        depends_on:
+            - "database-server"
+            - "eureka-server"
+        links:
+            - "eureka-server:eureka-server"
+            - "database-server:database-server"        
+
+    rest-server:
+        image: matheuszero/rest
+        container_name: rest-server
+        depends_on:
+            - "eureka-server"
+            - "database-server"
+        links:
+            - "database-server:database-server"
+            - "eureka-server:eureka-server"
+
+    tt-server:
+        image: matheuszero/rest-tt
+        container_name: tt-server
+        depends_on:
+            - "eureka-server"
+        links:
+            - "eureka-server:eureka-server"
+
+    database-server:
+        image: matheuszero/projeto-bd
+        container_name: database-server
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: spring
+            MYSQL_USER: mainRoot
+            MYSQL_PASSWORD: mainRoot
