@@ -37,6 +37,7 @@ public class UsuarioController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+	/*
 	@PostMapping
 	public ResponseEntity<?> adicionar(@RequestBody Usuario usuario) {
 		try {
@@ -50,11 +51,11 @@ public class UsuarioController {
 	@PutMapping(value="/{id}")
 	public ResponseEntity update(@PathVariable("id") long id, @RequestBody Usuario usuario) {
 		return usuarioRepository.findById(id)
-				.map(record -> {
-					record.setNome(usuario.getNome());
-					Usuario updated = usuarioRepository.save(record);
-					return ResponseEntity.ok().body(updated);
-				}).orElse(ResponseEntity.notFound().build());
+			.map(record -> {
+				record.setNome(usuario.getNome());
+				Usuario updated = usuarioRepository.save(record);
+				return ResponseEntity.ok().body(updated);
+			}).orElse(ResponseEntity.notFound().build());
 	} 
 	
 	@DeleteMapping(path = {"/{id}"})
@@ -65,5 +66,6 @@ public class UsuarioController {
 					return ResponseEntity.ok().build();
 				}).orElse(ResponseEntity.notFound().build());
 	}
+	*/
 	
 }

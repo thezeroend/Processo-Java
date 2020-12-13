@@ -21,7 +21,6 @@ public class User {
     @Column(unique = true)
     private String user;
     
-    @JsonIgnore
     private String password;
 
     private String nome;

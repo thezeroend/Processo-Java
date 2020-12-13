@@ -20,10 +20,10 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 50, nullable = false)
+	@Column(length = 50, unique = true, nullable = false)
 	private String user;
 
-	@JsonIgnore
+	@Column(nullable = false)
     private String password;
 	
 	@Column(length = 50, nullable = false)
